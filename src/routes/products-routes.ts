@@ -11,4 +11,11 @@ productsRoutes.get(
   },
 );
 
+productsRoutes.post(
+  "/",
+  (request: Request, response: Response, next: NextFunction) => {
+    productsController.create(request, response, next);
+  },
+);
+
 export { productsRoutes };
