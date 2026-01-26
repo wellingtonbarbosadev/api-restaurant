@@ -22,7 +22,7 @@ class ProductController {
 
       const { name, price } = bodySchema.parse(request.body);
 
-      await knex("products").insert({ name, price });
+      await knex<ProductRepository>("products").insert({ name, price });
 
       return response.status(201).json();
     } catch (error) {
