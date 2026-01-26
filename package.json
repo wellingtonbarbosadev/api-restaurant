@@ -1,0 +1,23 @@
+{
+  "name": "api-restaurant",
+  "version": "1.0.0",
+  "description": "API for management of restaurant orders",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "restaurant",
+    "api",
+    "orders",
+    "management"
+  ],
+  "author": "Wellington Barbosa",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "typescript": "^5.9.3"
+  }
+}
