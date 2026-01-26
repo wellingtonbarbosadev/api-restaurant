@@ -4,18 +4,8 @@ import { Router, Request, Response, NextFunction } from "express";
 const productsRoutes = Router();
 const productsController = new ProductController();
 
-productsRoutes.get(
-  "/",
-  (request: Request, response: Response, next: NextFunction) => {
-    productsController.index(request, response, next);
-  },
-);
+productsRoutes.get("/", productsController.index);
 
-productsRoutes.post(
-  "/",
-  (request: Request, response: Response, next: NextFunction) => {
-    productsController.create(request, response, next);
-  },
-);
+productsRoutes.post("/", productsController.create);
 
 export { productsRoutes };

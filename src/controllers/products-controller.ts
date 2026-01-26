@@ -5,6 +5,7 @@ class ProductController {
   async index(request: Request, response: Response, next: NextFunction) {
     try {
       const products = await knex("products").select();
+
       return response.json(products);
     } catch (error) {
       next(error);
@@ -13,11 +14,11 @@ class ProductController {
 
   async create(request: Request, response: Response, next: NextFunction) {
     try {
-      const product = request.body;
+      const { name, price } = request.body;
 
-      await knex("products").insert(product);
+      await knex("products").insert({ name, price });
 
-      return response.status(201).json(product);
+      return response.status(201).json();
     } catch (error) {
       next(error);
     }
