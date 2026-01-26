@@ -4,7 +4,8 @@ import { Request, Response, NextFunction } from "express";
 class ProductController {
   async index(request: Request, response: Response, next: NextFunction) {
     try {
-      return response.json({ message: "OK" });
+      const products = await knex("products").select();
+      return response.json(products);
     } catch (error) {
       next(error);
     }
