@@ -72,6 +72,21 @@ class ProductController {
       next(error);
     }
   }
+
+  async delete(request: Request, response: Response, next: NextFunction) {
+    const id = z
+      .object({
+        id: z
+          .string()
+          .transform((value) => Number(value))
+          .refine((value) => !isNaN(value)),
+      })
+      .parse(request.params);
+
+    await knex<ProductRepository>("products").delete().where(id);
+
+    return response.json();
+  }
 }
 
 export { ProductController };
