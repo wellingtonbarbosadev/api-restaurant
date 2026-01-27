@@ -50,6 +50,7 @@ class ProductController {
         .parse(request.params);
 
       const product = await knex<ProductRepository>("products")
+        .select()
         .where(id)
         .first();
       if (!product) {
@@ -91,7 +92,10 @@ class ProductController {
       })
       .parse(request.params);
 
-    const product = await knex<ProductRepository>("products").where(id).first();
+    const product = await knex<ProductRepository>("products")
+      .select()
+      .where(id)
+      .first();
     if (!product) {
       throw new AppError("product not found");
     }
