@@ -97,6 +97,7 @@ class ProductController {
         .select()
         .where(id)
         .first();
+
       if (!product) {
         throw new AppError("product not found");
       }
