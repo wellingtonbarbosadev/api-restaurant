@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { productsRoutes } from "./products-routes";
 import { tablesRouter } from "./tables-routes";
+import { tablesSessionsRouter } from "./tables-sessions-router";
 
 const routes = Router();
 routes.use("/products", productsRoutes);
 routes.use("/tables", tablesRouter);
+routes.use("/tables_sessions", tablesSessionsRouter);
 
 export { routes };
