@@ -6,6 +6,6 @@ import { tablesSessionsRouter } from "./tables-sessions-router";
 const routes = Router();
 routes.use("/products", productsRoutes);
 routes.use("/tables", tablesRouter);
-routes.use("/tables_sessions", tablesSessionsRouter);
+routes.use("/tables-sessions", tablesSessionsRouter);
 
 export { routes };
