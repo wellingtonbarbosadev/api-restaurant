@@ -61,7 +61,13 @@ class TablesSessionsController {
       throw new AppError("Session table already closed");
     }
 
-    return response.json(id);
+    await knex<TableSessionsRepository>("tables_sessions")
+      .update({
+        closed_at: knex.fn.now(),
+      })
+      .where({ id });
+
+    return response.json();
   }
 }
 
