@@ -1,7 +1,13 @@
 import { Request, Response, NextFunction } from "express";
+import { knex } from "@/database/knex";
 import { z } from "zod";
 
 class OrdersController {
+  async index(request: Request, response: Response, next: NextFunction) {
+    const order = await knex<OrdersRepository>("orders").select();
+    return response.json(order);
+  }
+
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const bodySchema = z.object({
@@ -14,7 +20,19 @@ class OrdersController {
         request.body,
       );
 
-      return response.json({ table_session_id, product_id, quantity });
+      const { price } = await knex("products")
+        .where({ id: product_id })
+        .select("price")
+        .first();
+
+      await knex("orders").insert({
+        table_session_id,
+        product_id,
+        quantity,
+        price,
+      });
+
+      return response.json();
     } catch (error) {
       next(error);
     }
