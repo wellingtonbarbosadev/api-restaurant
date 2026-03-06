@@ -32,6 +32,14 @@ class OrdersController {
         throw new AppError("this table is closed");
       }
 
+      const product = await knex<ProductRepository>("products")
+        .where({ id: product_id })
+        .first();
+
+      if (!product) {
+        throw new AppError("product not found");
+      }
+
       const { price } = await knex("products")
         .where({ id: product_id })
         .select("price")
