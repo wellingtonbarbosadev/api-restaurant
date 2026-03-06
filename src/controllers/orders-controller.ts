@@ -40,16 +40,11 @@ class OrdersController {
         throw new AppError("product not found");
       }
 
-      const { price } = await knex("products")
-        .where({ id: product_id })
-        .select("price")
-        .first();
-
       await knex("orders").insert({
         table_session_id,
         product_id,
         quantity,
-        price,
+        price: product.price,
       });
 
       return response.json();
