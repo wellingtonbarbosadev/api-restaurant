@@ -5,8 +5,33 @@ import { z } from "zod";
 
 class OrdersController {
   async index(request: Request, response: Response, next: NextFunction) {
-    const order = await knex<OrdersRepository>("orders").select();
-    return response.json(order);
+    try {
+      const { table_session_id } = request.params;
+
+      const order = await knex("orders")
+        .select(
+          "orders.id",
+          "orders.table_session_id",
+          "orders.product_id",
+          "products.name",
+          "orders.price",
+          "orders.quantity",
+          knex.raw("(orders.price * orders.quantity) AS total"),
+          "orders.created_at",
+          "orders.updated_at",
+        )
+        .join("products", "products.id", "orders.product_id")
+        .where({ table_session_id })
+        .orderBy("orders.created_at", "desc");
+
+      if (order.length === 0) {
+        throw new AppError("table session not exists");
+      }
+
+      return response.json(order);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async create(request: Request, response: Response, next: NextFunction) {
